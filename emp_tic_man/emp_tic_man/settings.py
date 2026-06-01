@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'authentication',
+    'tailwind',
+    'theme',
+    
 ]
 
 MIDDLEWARE = [
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'emp_tic_man.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR /'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,6 +77,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'emp_tic_man.wsgi.application'
 
+# tailwind
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+TAILWIND_APP_NAME="theme"
+
+# static files
+STATIC_URL='static/'
+STATIC_ROOT=BASE_DIR/'staticfiles'
+STATIC_DIRS = [
+    BASE_DIR/'static',
+] 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

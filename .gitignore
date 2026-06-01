@@ -1,3 +1,13 @@
 .venv
 __init__.py
 .env
+*.pyc
+__pycache__/
+*.log
+*.sqlite3
+tailwind.config.js
+postcss.config.js
+staticfiles/
+media/
+node_modules/
+
