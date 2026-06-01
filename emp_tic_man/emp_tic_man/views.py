@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 def home(request):
-    return HttpResponse('<hr><h2> Internal Employee Ticketing System</h2><hr><h3>version:0.1</h3>')
+    # return HttpResponse('<hr><h2> Internal Employee Ticketing System</h2><hr><h3>version:0.1</h3>')
+    return render(request,'base.html')
