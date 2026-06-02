@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div>
+        <h2 class="text-2xl font-bold my-4 text-center font-mono">
+            Register
+        </h2>
+        <form method="post" class="max-w-lg mx-auto bg-gray-600 p-7 rounded drop-shadow-2xl text-white font-mono">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full my-3">
+                Register
+            </button>
+        </form>
+    </div>
+{% endblock  %}
