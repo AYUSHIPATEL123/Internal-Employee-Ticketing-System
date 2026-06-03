@@ -1,0 +1,33 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <nav class="bg-teal-500 text-black  p-4 font-bold sticky top-0 z-10 flex align-middle justify-between">
+        <div></div>
+        <ul class="flex align-middle justify-center ">
+            <li border-teal-700><a href="{% url 'home' %}" class="hover:text-white py-1.5 px-4 rounded">Home</a></li>
+
+            
+            {% if user.is_authenticated %}
+            <li>
+                <form method="post" action="{% url 'logout'%}">
+                    {% csrf_token %}
+                    <button type="submit" class="hover:bg-gray-900 hover:text-white py-0.5 px-4 rounded">
+                        Logout
+                    </button>
+                </form>
+            </li>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Login</a></li>
+            <li><a href="{% url 'register' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Register</a></li>
+            {% endif %}
+
+    </nav>
+</body>
+</html>

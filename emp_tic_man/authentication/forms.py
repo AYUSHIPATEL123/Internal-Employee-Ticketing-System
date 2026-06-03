@@ -28,7 +28,7 @@ class UserForm(forms.ModelForm):
 
         for field_name,field in self.fields.items():
             field.widget.attrs.update({
-                "class":"border rounded p-2 w-full bg-gray-200 text-black",
+                "class":"border rounded p-2 w-full bg-gray-200 text-black border-2 border-teal-300",
                 "placeholder":f"enter the {field_name}".replace("_","").capitalize()
             })
 
@@ -36,15 +36,30 @@ class UserForm(forms.ModelForm):
     def save(self, commit = True):
         
         user = super().save(commit=False)
-        user.set_password('password')
+        user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
 
         return user
 
 class Loginform(forms.Form):
-    email = forms.CharField(max_length=300)
+
+    email = forms.EmailField(max_length=300,widget=forms.EmailInput(attrs={
+        "class": "border rounded p-2 w-full bg-gray-200 text-black border-2 border-teal-300",
+        "placeholder": "Email"
+    }))
+
     password= forms.CharField(max_length=200,required=True,widget=forms.PasswordInput(attrs={
-        "class": "form-control",
+        "class": "border rounded p-2 w-full bg-gray-200 text-black border-2 border-teal-300",
         "placeholder": "Confirm Password"
     }))
+
+    def clean(self):
+        data = super().clean()
+
+        if len(data['password']) < 8:
+            raise ValidationError("password should contail 8 characters")
+        
+        return data
+
+
