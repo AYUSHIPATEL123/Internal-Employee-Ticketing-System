@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+Update Ticket
+{% endblock  %}
+
+{% block content %}
+
+<h2 class="text-2xl font-bold my-4 text-center font-mono">
+            Update Ticket      
+        </h2>
+        <div class="bg-teal-50 p-3 border-2 border-teal-300 rounded-lg shadow-md w-2/3 mx-auto">
+            <p>{{ object.description }}</p>
+        </div>
+        <form method="post" class="max-w-lg mx-auto border-2 border-teal-300 bg-gray-500 p-7 rounded-3xl m-10 shadow-teal-500 text-white font-mono">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="bg-teal-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full my-3">
+                Update Ticket
+            </button>
+        </form>
+        
+{% endblock  %}

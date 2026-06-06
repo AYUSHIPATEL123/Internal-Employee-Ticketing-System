@@ -1,3 +1,33 @@
 from django.db import models
-
+from authentication.models import CustomUser
+from django.utils import timezone
+from django.urls import reverse
 # Create your models here.
+
+
+class ticket(models.Model):
+
+    PRIORITIES = (
+        ('LOW','low'),
+        ('MEDIAM','mediam'),
+        ('HIGH','high'),
+    )
+
+    STATUSES=(
+        ('OPEN','open'),
+        ('IN-PROCESS','in process'),
+        ('CLOSED','closed'),
+    )
+
+    summary = models.CharField(max_length=400)
+    employee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'EMPLOYEE'},related_name='employee')
+    assignee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'IT-STAFF'},related_name='assignee',null=True,blank=True)
+    status = models.CharField(max_length=100,choices=STATUSES,default='OPEN')
+    priority=models.CharField(max_length=100,choices=PRIORITIES,default='LOW')
+    date = models.DateField(default=timezone.now)
+    description=models.TextField(max_length=10000)
+
+
+    def get_absolute_url(self):
+        return reverse("ticket_detail", kwargs={"pk": self.pk})
+    

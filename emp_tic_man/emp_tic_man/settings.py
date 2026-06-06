@@ -31,6 +31,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
+LOGIN_URL = 'login'
+
 
 # Application definition
 

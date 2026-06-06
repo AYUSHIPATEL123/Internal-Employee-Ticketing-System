@@ -13,11 +13,10 @@
         Document
     {% endblock %}
     </title>
-
+    <link rel="stylesheet" href="{% static 'css/app.css' %}">
     {% tailwind_css %}
 
 </head>
-<body>
 {% include "navbar.html" %}
 {% block content %}
 <h1 class="text-5xl text-center cursor-pointer bg-gray-300 text-teal-700"  >INTERNAL EMPLOYEE TICKETING SYSTEM</h1>

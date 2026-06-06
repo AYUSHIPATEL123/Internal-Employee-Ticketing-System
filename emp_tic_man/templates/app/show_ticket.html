@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+Detail Ticket
+{% endblock  %}
+
+{% block content %}
+<div class="bg-teal-100 max-w-full my-5 mx-auto h-svh p-5 px-24 text-black flex flex-col align-middle rounded-lg shadow-md font-mono">
+    <h2 class="font-bold h-10 text-4xl my-7">{{ object.summary }}</h2>
+    <p class="font-sans text-wrap w-2/3 my-3">{{ object.description }}</p> 
+    <p class="my-7">Created at: {{ object.date|date:"j F, Y" }}</p>
+    <small class="bg-gray-700 w-fit text-white px-4 py-2 my-1 font-bold rounded text-base">Status: {{ object.status }}</small>
+    <small class="bg-yellow-500 w-fit text-white px-5 py-2 my-1 rounded font-bold text-base">Priority: {{ object.priority }}</small>
+    <button class="bg-blue-500 hover:bg-blue-700 w-fit my-4 text-white font-bold py-2 px-4 rounded"><a href="{% url 'upd_ticket' object.id %}" class="text-white">Edit Ticket</a></button>
+    {% if request.user.role == 'MANAGER' %}
+        <form action= "{% url 'del_ticket' object.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete Ticket</button>
+        </form>
+        {% endif %}    
+</div>
+{% endblock  %}
