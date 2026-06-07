@@ -1,6 +1,10 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import Group
+from django.shortcuts import get_object_or_404
 from .models import CustomUser
+
+
 class UserForm(forms.ModelForm):
 
     confirm_password=forms.CharField(max_length=300,required=True,widget=forms.PasswordInput(attrs={
@@ -14,7 +18,7 @@ class UserForm(forms.ModelForm):
 
     def clean(self):
         data = super().clean()
-        
+
         if data['password'] != data['confirm_password']:
             raise ValidationError("password dose not mached")
 
@@ -36,9 +40,14 @@ class UserForm(forms.ModelForm):
     def save(self, commit = True):
         
         user = super().save(commit=False)
+        group = get_object_or_404(Group, name=user.role)
+         
+        
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
+            user.groups.add(group)  
+            print(group,user.groups.all())
 
         return user
 

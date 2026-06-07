@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView,ListView,UpdateView,DetailView,DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from .models import *
 from .forms import *
 # Create your views here.
@@ -10,7 +10,9 @@ from .forms import *
 class CreateTicket(LoginRequiredMixin,CreateView):
     model = ticket
     # fields = ('summary','description')  # don't use this if form_class is there
-    form_class=TicketAddForm
+    form_class = TicketAddForm
+    permission_required = 'app.add_ticket'
+    permission_denied_message = "you can not add these data"
     template_name = 'app/add_ticket.html'
     success_url = reverse_lazy('all_tickets')
 
@@ -21,20 +23,36 @@ class CreateTicket(LoginRequiredMixin,CreateView):
 
 class ListTicket(LoginRequiredMixin,ListView):
     model = ticket
+    permission_required = 'app.view_ticket'
+    permission_denied_message = "you can not view these data"
     template_name='app/ticket_list.html'
 
+    def get_queryset(self):
+        tickets = super().get_queryset()
+        user = self.request.user
+        if user.role == 'EMPLOYEE':
+            tickets = ticket.objects.filter(employee=user)
+        return tickets    
 
-class DetailTicket(LoginRequiredMixin,DetailView):
+
+
+
+class DetailTicket(LoginRequiredMixin,PermissionRequiredMixin,DetailView):
     model = ticket
+    permission_required = 'app.view_ticket'
+    permission_denied_message = "you can not view these data"
     template_name='app/show_ticket.html'
     context_object_name = 'ticket'
     
 
-class UpdateTicket(LoginRequiredMixin,UpdateView):
+class UpdateTicket(LoginRequiredMixin,PermissionRequiredMixin,UpdateView):
     model = ticket
     form_class = TicketUpdateForm
+    permission_required = 'app.change_ticket'
+    permission_denied_message = "you do not have the permission to update data"
     template_name='app/upd_ticket.html'
     success_url = reverse_lazy('all_tickets')
+
 
     def get_context_data(self, **kwargs):
 
@@ -45,5 +63,7 @@ class UpdateTicket(LoginRequiredMixin,UpdateView):
 
 class DeleteTicket(LoginRequiredMixin,DeleteView):
     model = ticket
+    permission_required = 'app.delete_ticket'
+    permission_denied_message = "you can not delete this data"
     success_url = reverse_lazy('all_tickets')
 
