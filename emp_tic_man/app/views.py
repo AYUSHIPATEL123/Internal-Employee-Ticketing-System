@@ -7,7 +7,7 @@ from .forms import *
 # Create your views here.
 
 
-class CreateTicket(LoginRequiredMixin,CreateView):
+class CreateTicket(LoginRequiredMixin,PermissionRequiredMixin,CreateView):
     model = ticket
     # fields = ('summary','description')  # don't use this if form_class is there
     form_class = TicketAddForm
@@ -21,7 +21,7 @@ class CreateTicket(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-class ListTicket(LoginRequiredMixin,ListView):
+class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
     model = ticket
     permission_required = 'app.view_ticket'
     permission_denied_message = "you can not view these data"
