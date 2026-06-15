@@ -10,11 +10,15 @@
 
     <nav class="bg-teal-500 text-black  p-4 font-bold sticky top-0 z-10 flex align-middle justify-between">
         <div></div>
-        <ul class="flex align-middle justify-center ">
+        <ul class="align-middle justify-center hidden lg:flex">
             <li border-teal-700><a href="{% url 'home' %}" class="hover:text-white py-1.5 px-4 rounded">Home</a></li>
-
+            
             
             {% if user.is_authenticated %}
+            <li border-teal-700><a href="{% url 'all_tickets' %}" class="hover:text-white py-1.5 px-4 rounded">All Tickets</a></li>
+            {% if user.role == 'EMPLOYEE' %}
+            <li border-teal-700><a href="{% url 'add_ticket' %}" class="hover:text-white py-1.5 px-4 rounded">Create Ticket</a></li>
+            {% endif %}
             <li>
                 <form method="post" action="{% url 'logout'%}">
                     {% csrf_token %}
@@ -23,11 +27,44 @@
                     </button>
                 </form>
             </li>
+            
+
             {% else %}
             <li><a href="{% url 'login' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Login</a></li>
             <li><a href="{% url 'register' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Register</a></li>
             {% endif %}
+        </ul>
 
+        <nav class="relative group lg:hidden">
+            <button class="text-3xl ">
+                <i class="ri-menu-fill"></i>
+            </button>
+            <div class="absolute text-nowrap right-0 mt-0.5 w-40 border-2 border-teal-600 bg-teal-400 rounded-md shadow-sm py-2 px-4 hidden group-focus-within:flex flex-col text-center">
+                
+                <a class="hover:text-white" href="{% url 'home' %}">Home</a>
+                {% if user.is_authenticated %}
+                <a class="hover:text-white" href="{% url 'all_tickets' %}">All Tickets</a>
+                    
+                    {% if user.role == 'EMPLOYEE' %}
+                    <a class="hover:text-white" href="{% url 'add_ticket' %}">Create Ticket</a>
+                    {% endif %}
+            
+                    <form method = "post" action="{% url 'logout'%}">
+                        {% csrf_token %}
+                        <button type="submit" class="hover:bg-gray-900 hover:text-white py-0.5 px-4 rounded">
+                            Logout
+                        </button>
+                    </form>
+
+                {% else %}
+
+                <a href="{% url 'login' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Login</a>
+                <a href="{% url 'register' %}" class="hover:bg-gray-900 hover:text-white py-1 px-4 rounded">Register</a>
+                
+                {% endif %}  
+            </div>      
+            </nav>
+            
     </nav>
 </body>
 </html>

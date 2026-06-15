@@ -31,8 +31,8 @@ class TicketUpdateForm(forms.ModelForm):
                     })
                 else:    
                     field.widget.attrs.update({
-                    "class":"border rounded p-2 w-full bg-gray-200 text-black border-2 border-teal-300",
-                    "placeholder":f"enter the {field_name}".replace("_","").capitalize()
+                        "class":"border rounded p-2 w-full bg-gray-200 text-black border-2 border-teal-300",
+                        "placeholder":f"enter the {field_name}".replace("_","").capitalize()
                     })
 
 
