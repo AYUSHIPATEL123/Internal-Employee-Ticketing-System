@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.db.models import Case,When,Value,IntegerField
 from django.views.generic import CreateView,ListView,UpdateView,DetailView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from .models import *
@@ -22,16 +23,38 @@ class CreateTicket(LoginRequiredMixin,PermissionRequiredMixin,CreateView):
 
 
 class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
+    
     model = ticket
     permission_required = 'app.view_ticket'
     permission_denied_message = "you can not view these data"
     template_name='app/ticket_list.html'
 
     def get_queryset(self):
-        tickets = super().get_queryset()
+
+        tickets = ticket.objects.annotate(
+            priority_order=Case(
+                When(priority="high",then=Value(1)),
+                When(priority="medium",then=Value(2)),
+                When(priority="low",then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField()
+            ),
+            status_order=Case(
+                When(status="open",then=Value(1)),
+                When(status="IN-PROCESS",then=Value(2)),
+                When(status="closed",then=Value(3)),
+                default=Value(4),
+                output_field=IntegerField()
+            )
+        ).order_by("status_order","priority_order","date")
+
+
         user = self.request.user
+
         if user.role == 'EMPLOYEE':
-            tickets = ticket.objects.filter(employee=user)
+
+            tickets = tickets.filter(employee=user)
+
         return tickets    
 
 

@@ -2,6 +2,7 @@ from django.db import models
 from authentication.models import CustomUser
 from django.utils import timezone
 from django.urls import reverse
+from .services import assign_priority
 # Create your models here.
 
 
@@ -9,7 +10,7 @@ class ticket(models.Model):
 
     PRIORITIES = (
         ('LOW','low'),
-        ('MEDIAM','mediam'),
+        ('MEDIUM','medium'),
         ('HIGH','high'),
     )
 
@@ -30,4 +31,8 @@ class ticket(models.Model):
 
     def get_absolute_url(self):
         return reverse("ticket_detail", kwargs={"pk": self.pk})
+
+    def save(self,*args,**kwargs):
+        self.priority = assign_priority(self.description) 
+        super().save(*args,**kwargs)   
     
