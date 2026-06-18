@@ -12,7 +12,9 @@ Detail Ticket
 
     <p class="font-mono sm:text-wrap sm:w-2/3 my-5">description: {{ object.description }}</p> 
     
-    <p class="my-3">Created at: {{ object.date|date:"j F, Y" }}</p>
+    <p class="my-3">Created at: {{ object.created_at|date:"j F, Y" }}</p>
+
+    <p class="my-3">Resolved at: {{ object.resolved_at|date:"j F, Y" }}</p>
     
     <p class="my-2">employee: {{object.employee}}</p>
     

@@ -96,11 +96,12 @@ PRIORITY_KEYWORD={
 high_pattern = re.compile(
     "|".join(re.escape(word) for word in PRIORITY_KEYWORD["high"])
     ,re.IGNORECASE) 
+
 medium_pattern = re.compile(
     "|".join(re.escape(word) for word in PRIORITY_KEYWORD["medium"])
     ,re.IGNORECASE) 
 
-print(medium_pattern)
+
 low_pattern = re.compile(
     "|".join(re.escape(word) for word in PRIORITY_KEYWORD["low"]) 
     ,re.IGNORECASE)

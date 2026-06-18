@@ -16,9 +16,10 @@ class TicketAddForm(forms.ModelForm):
 
 
 class TicketUpdateForm(forms.ModelForm):
+    resolved_at = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     class Meta:
         model = ticket
-        fields = ['summary','status','assignee']
+        fields = ['summary','status','assignee','resolved_at']
 
     def __init__(self,*args, **kwargs):
             super().__init__(*args,**kwargs)

@@ -46,7 +46,7 @@ class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
                 default=Value(4),
                 output_field=IntegerField()
             )
-        ).order_by("status_order","priority_order","date")
+        ).order_by("status_order","priority_order","created_at")
 
 
         user = self.request.user

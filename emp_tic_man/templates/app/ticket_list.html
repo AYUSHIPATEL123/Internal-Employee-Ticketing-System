@@ -11,7 +11,7 @@
     </h2>
 
     <!-- Add your ticket list content here -->
-    <div flex class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 m-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 m-3">
     {% for object in object_list %}
     
     
@@ -19,7 +19,7 @@
         
         <h3 class="text-lg p-3 font-semibold text-gray-700"><a href="{{object.get_absolute_url}}">{{ object.summary }}</a></h3>
     
-        <p class="text-black text-base p-2 my-4 bg-teal-50">{{ object.date|date:"j F, Y"  }}</p>
+        <p class="text-black text-base p-2 my-4 bg-teal-50">{{ object.created_at|date:"j F, Y"  }}</p>
         
         <small class="bg-gray-700  text-white px-4 py-2 my-5 font-bold rounded">{{ object.status }}</small>
         <small class="bg-yellow-500 text-white px-5 py-2 my-5 rounded font-bold">{{ object.priority }}</small>
