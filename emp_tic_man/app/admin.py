@@ -5,6 +5,6 @@ from .models import *
 
 @admin.register(ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display=('id','summary','employee','assignee','status','priority')
+    list_display=('id','summary','employee','assignee','status','priority','created_at')
     list_filter=('status','priority')
     list_display_links=('summary',)

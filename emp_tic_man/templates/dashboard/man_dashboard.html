@@ -5,6 +5,72 @@ Manager Dashboard
 {% endblock  %}
 
 {% block content %}
-<h1>Manager Dashboard</h1>
-<p>Welcome to your dashboard!</p>
+<h1 class="font-sans text-4xl text-center">Manager Dashboard</h1>
+<div class="flex flex-col items-center justify-center mx-3 mt-7 font-mono">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center grid-items-center gap-4 w-3/4">
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-gray-400  w-3/4 rounded-lg">Open Tickets</div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-blue-500  w-3/4 rounded-lg">In Process Tickets</div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-green-500  w-3/4 rounded-lg">Closed Tickets</div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-yellow-400  w-3/4 rounded-lg">High Priority Tickets</div>
+</div>
+<br>
+<h3 class="text-3xl font-sans text-center">It Staff Data</h3>
+<table class="table-auto md:table-fixed border-separate w-3/4 text-lg font-sans">
+    
+    <thead>
+    
+        <tr>
+            <th class="text-center bg-teal-400 ">Employee</th>
+            <th class="text-center bg-teal-400 ">Assigened Tickets</th>
+            <th class="text-center bg-teal-400 ">Resolved Tickets</th>
+        </tr>
+    
+    </thead>
+
+    <tbody>
+        
+        <tr>
+            <td class="text-center  bg-gray-400"> jblknjcolsa</td>
+            <td class="text-center bg-teal-400">jblknjcolsa</td>
+            <td class="text-center bg-gray-400"> jblknjcolsa</td>
+        </tr>    
+      
+
+    </tbody>
+</table>
+
+<br>
+    <h3 class="text-3xl font-sans">Tickets</h3>
+    <table class="table-auto md:table-fixed border-separate w-3/4 font-sans text-lg ">
+        
+        <thead>
+           
+            <tr class="bg-teal-100">
+            <th class="bg-teal-400">summery</th>
+            <th class="bg-teal-400">priority</th>
+            <th class="bg-teal-400">status</th>
+            <th class="bg-teal-400">Actions</th>
+            </tr>
+        
+        </thead>
+
+        <tbody>
+            
+            <tr class="text-center">
+                <td class="bg-gray-400">Lorem, i</td>
+                <td class="bg-teal-400">Lorem.</td>
+                <td class="bg-gray-400">Lorem,</td>
+                <td class="bg-teal-400 p-2.5">
+                    <a href="#" class="p-3 py-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg">Update</a>
+                    <a href="#" class="p-3 py-2 bg-red-600 rounded-md text-center no-underline hover:bg-red-500 shadow-lg">Delete</a>
+                </td>
+            </tr>
+           
+            
+        
+        </tbody>
+    
+    </table>
+</div>
+
 {% endblock  %}

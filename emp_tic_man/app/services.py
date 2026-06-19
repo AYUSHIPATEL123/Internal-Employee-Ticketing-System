@@ -110,12 +110,12 @@ low_pattern = re.compile(
 def assign_priority(desc):
 
     if re.search(high_pattern,desc):
-        return "high"
+        return "HIGH"
     
     if re.search(medium_pattern,desc):
-        return "medium"
+        return "MEDIUM"
     
     if re.search(low_pattern,desc):
-        return "low"
+        return "LOW"
     
-    return "low"
+    return "LOW"

@@ -5,14 +5,96 @@ IT Staff Dashboard
 {% endblock  %}
 
 {% block content %}
-<h1 class="text-2xl font-bold text-center">Dashboard</h1>
-<div class="flex flex-col justify-center items-center mx-6 mt-8">
-    <div class="grid gap-1 grid-cols-1 place-items-center grid-items-center sm:grid-cols-2 w-full lg:grid-cols-4">
-        <div class="text-center font-bold bg-gray-500 shadow-md rounded-lg w-3/4 p-1 py-8">Unassigned</div>
-        <div class="text-center font-bold bg-blue-500 shadow-md rounded-lg w-3/4 p-1 py-8">My Tickets</div>
-        <div class="text-center font-bold bg-yellow-500 shadow-md rounded-lg w-3/4 p-1 py-8">High Priority</div>
-        <div class="text-center font-bold bg-green-500 shadow-md rounded-lg w-3/4 p-1 py-8">Resolved</div>
+
+
+<h1 class="font-sans text-4xl text-center">Dashboard</h1>
+
+<div class="flex flex-col justify-center items-center mx-6 mt-8 font-mono">
+
+
+    <div class="grid gap-4 grid-cols-1 place-items-center grid-items-center sm:grid-cols-2 w-3/4 lg:grid-cols-4 m-5">
+        <div class="text-center border font-bold bg-gray-400 shadow-md rounded-lg w-3/4 p-4 py-8">{{ open_tic_count }} Open Tickets</div>
+        <div class="text-center border font-bold bg-blue-500 shadow-md rounded-lg w-3/4 p-4 py-8">{{staff_tic_count}} My Tickets</div>
+        <div class="text-center border font-bold bg-yellow-500 shadow-md rounded-lg w-3/4 p-4 py-8">{{high_pri_count}} High Priority</div>
+        <div class="text-center border font-bold bg-green-500 shadow-md rounded-lg w-3/4 p-4 py-8">{{res_count}} Resolved</div>
     </div>
 
+
+<br>
+
+
+    <h3 class="text-3xl font-sans">Open Tickets</h3>
+    <table class="table-auto md:table-fixed border-separate w-3/4 font-sans text-lg">
+        
+        <thead>
+           
+            <tr class="bg-teal-100">
+
+            <th class="border border-teal-500 bg-teal-400">summery</th>
+            <th class="border border-teal-500 bg-teal-400">priority</th>
+            <th class="border border-teal-500 bg-teal-400">created_at</th>
+            <th class="border border-teal-500 bg-teal-400">Actions</th>
+
+            </tr>
+        
+        </thead>
+
+        <tbody>
+
+            {% for ticket in open_tickets %}
+            <tr class="text-center">
+
+                <td class="border border-teal-500 bg-gray-400">{{ticket.summary}}</td>
+                <td class="border border-teal-500 bg-teal-400">{{ticket.priority}}</td>
+                <td class="border border-teal-500 bg-gray-400">{{ticket.created_at}}</td>
+                <td class="border border-teal-500 bg-teal-400 p-2.5">
+                    <a href="{% url 'upd_ticket' ticket.id %}" class="p-3 py-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg">Update</a>
+                </td>
+            
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+    
+    </table>
+    
+    
+    <br>
+   
+   
+    <h3 class="text-3xl font-sans">My Assigened Tickets</h3>
+    <table class="table-auto md:table-fixed border-separate w-3/4 font-sans text-lg">
+        
+        <thead>
+           
+            <tr class="bg-teal-100">
+            <th class="border border-teal-500 bg-teal-400">summery</th>
+            <th class="border border-teal-500 bg-teal-400">priority</th>
+            <th class="border border-teal-500 bg-teal-400">status</th>
+            <th class="border border-teal-500 bg-teal-400">
+                Actions
+            </th>
+            </tr>
+        
+        </thead>
+
+        <tbody>
+            
+            {% for ticket in staff_tickets %}
+
+            <tr class="text-center">
+                <td class="border border-teal-500 bg-teal-400">{{ticket.summary}}</td>
+                <td class="border border-teal-500 bg-gray-400">{{ticket.priority}}</td>
+                <td class="border border-teal-500 bg-teal-400">{{ticket.status}}</td>
+                <td class="border border-teal-500 bg-gray-400 p-2.5">
+                    <a href="{% url 'upd_ticket' ticket.id %}" class="p-3 py-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg">Update</a>
+                </td>
+            </tr>
+           {% endfor %}
+        </tbody>
+    
+    </table>
+<br>
 </div>
+
 {% endblock  %}
