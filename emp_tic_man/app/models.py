@@ -21,8 +21,8 @@ class ticket(models.Model):
     )
 
     summary = models.CharField(max_length=400)
-    employee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'EMPLOYEE'},related_name='employee')
-    assignee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'IT-STAFF'},related_name='assignee',null=True,blank=True)
+    employee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'EMPLOYEE'},related_name='employee_tickets')
+    assignee = models.ForeignKey(CustomUser,on_delete=models.CASCADE,limit_choices_to={'role':'IT-STAFF'},related_name='assignee_tickets',null=True,blank=True)
     status = models.CharField(max_length=100,choices=STATUSES,default='OPEN')
     priority=models.CharField(max_length=100,choices=PRIORITIES,default='LOW')
     created_at = models.DateField(default=timezone.now)
@@ -36,5 +36,8 @@ class ticket(models.Model):
 
     def save(self,*args,**kwargs):
         self.priority = assign_priority(self.description) 
-        super().save(*args,**kwargs)   
+        super().save(*args,**kwargs)  
+
+    def __str__(self):
+        return self.summary     
     

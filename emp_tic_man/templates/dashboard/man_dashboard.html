@@ -6,12 +6,12 @@ Manager Dashboard
 
 {% block content %}
 <h1 class="font-sans text-4xl text-center">Manager Dashboard</h1>
-<div class="flex flex-col items-center justify-center mx-3 mt-7 font-mono">
+<div class="flex flex-col items-center justify-center mx-2 mt-7 font-mono">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center grid-items-center gap-4 w-3/4">
-    <div class="p-3 py-8 border font-bold text-center shadow-md bg-gray-400  w-3/4 rounded-lg">Open Tickets</div>
-    <div class="p-3 py-8 border font-bold text-center shadow-md bg-blue-500  w-3/4 rounded-lg">In Process Tickets</div>
-    <div class="p-3 py-8 border font-bold text-center shadow-md bg-green-500  w-3/4 rounded-lg">Closed Tickets</div>
-    <div class="p-3 py-8 border font-bold text-center shadow-md bg-yellow-400  w-3/4 rounded-lg">High Priority Tickets</div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-gray-400  w-3/4 rounded-lg">{{ open_tickets }} Open </div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-blue-500  w-3/4 rounded-lg">{{ inp_tickets }} In Process </div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-green-500  w-3/4 rounded-lg">{{ resoved_tickets }} Resolved </div>
+    <div class="p-3 py-8 border font-bold text-center shadow-md bg-yellow-400  w-3/4 rounded-lg">{{ hi_pri_tickets }} High Priority</div>
 </div>
 <br>
 <h3 class="text-3xl font-sans text-center">It Staff Data</h3>
@@ -20,7 +20,7 @@ Manager Dashboard
     <thead>
     
         <tr>
-            <th class="text-center bg-teal-400 ">Employee</th>
+            <th class="text-center bg-teal-400 ">IT Staff</th>
             <th class="text-center bg-teal-400 ">Assigened Tickets</th>
             <th class="text-center bg-teal-400 ">Resolved Tickets</th>
         </tr>
@@ -29,12 +29,15 @@ Manager Dashboard
 
     <tbody>
         
+        {% for staff in  it_staff %}
+        
         <tr>
-            <td class="text-center  bg-gray-400"> jblknjcolsa</td>
-            <td class="text-center bg-teal-400">jblknjcolsa</td>
-            <td class="text-center bg-gray-400"> jblknjcolsa</td>
-        </tr>    
-      
+            <td class="text-center bg-gray-400">{{ staff.username }}</td>
+            <td class="text-center bg-teal-400">{{ staff.inp_count }}</td>
+            <td class="text-center bg-gray-400"> {{ staff.res_count }}</td>
+        </tr> 
+
+        {% endfor %}
 
     </tbody>
 </table>
@@ -55,22 +58,24 @@ Manager Dashboard
         </thead>
 
         <tbody>
+            {% for ticket in tickets %}
             
             <tr class="text-center">
-                <td class="bg-gray-400">Lorem, i</td>
-                <td class="bg-teal-400">Lorem.</td>
-                <td class="bg-gray-400">Lorem,</td>
-                <td class="bg-teal-400 p-2.5">
-                    <a href="#" class="p-3 py-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg">Update</a>
-                    <a href="#" class="p-3 py-2 bg-red-600 rounded-md text-center no-underline hover:bg-red-500 shadow-lg">Delete</a>
+                <td class="bg-gray-400">{{ ticket.summary }}</td>
+                <td class="bg-teal-400">{{ ticket.priority }}</td>
+                <td class="bg-gray-400">{{ ticket.status }}</td>
+                <td class="bg-teal-400 p-3 md:p-4 flex flex-col md:flex-row justify-center items-center gap-2">
+                    <a href="{% url 'upd_ticket' ticket.id %}" class="p-1 py-1 lg:p-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg ">Update</a>
+                    <a href="{% url 'del_ticket' ticket.id %}" class="p-1 py-1 lg:p-2 bg-red-600 rounded-md text-center no-underline hover:bg-red-500 shadow-lg ">Delete</a>
                 </td>
             </tr>
            
-            
+            {% endfor %}
         
         </tbody>
     
     </table>
+    <br>
 </div>
 
 {% endblock  %}
