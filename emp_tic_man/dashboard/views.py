@@ -1,10 +1,13 @@
 from django.shortcuts import render
-from app.models import ticket
-from authentication.models import CustomUser
+from django.contrib.auth.decorators import login_required,permission_required
 from django.db.models import Value,Case,When,IntegerField,Count,Q
+from authentication.models import CustomUser
+from app.models import ticket
+from .decorators import role_required 
 # Create your views here.
 
-
+@login_required(login_url='login')
+@role_required("IT-STAFF")
 def staff(request):
     tickets = ticket.objects.annotate(priority_order=Case(
         When(priority="HIGH", then=Value(1)),
@@ -38,7 +41,8 @@ def staff(request):
 
     return render(request,'dashboard/it_stf_dashboard.html',context=context)
 
-
+@login_required(login_url='login')
+@role_required("MANAGER")
 def manager(request):
 
     tickets = ticket.objects.annotate(priority_order=Case(

@@ -49,11 +49,14 @@ Manager Dashboard
         <thead>
            
             <tr class="bg-teal-100">
+        
             <th class="bg-teal-400">summery</th>
             <th class="bg-teal-400">priority</th>
             <th class="bg-teal-400">status</th>
             <th class="bg-teal-400">Actions</th>
+            
             </tr>
+
         
         </thead>
 
@@ -66,7 +69,10 @@ Manager Dashboard
                 <td class="bg-gray-400">{{ ticket.status }}</td>
                 <td class="bg-teal-400 p-3 md:p-4 flex flex-col md:flex-row justify-center items-center gap-2">
                     <a href="{% url 'upd_ticket' ticket.id %}" class="p-1 py-1 lg:p-2 bg-blue-600 rounded-md text-center no-underline hover:bg-blue-500 shadow-lg ">Update</a>
-                    <a href="{% url 'del_ticket' ticket.id %}" class="p-1 py-1 lg:p-2 bg-red-600 rounded-md text-center no-underline hover:bg-red-500 shadow-lg ">Delete</a>
+                    <form action= "{% url 'del_ticket' ticket.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="bg-red-500 hover:bg-red-400 p-1 py-1 lg:p-2 rounded">Delete</button>
+                    </form>
                 </td>
             </tr>
            
@@ -78,4 +84,4 @@ Manager Dashboard
     <br>
 </div>
 
-{% endblock  %}
+{% endblock %}
