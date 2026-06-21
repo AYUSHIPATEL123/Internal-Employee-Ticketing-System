@@ -16,9 +16,21 @@
             
             {% if user.is_authenticated %}
             <li border-teal-700><a href="{% url 'all_tickets' %}" class="hover:text-white py-1.5 px-4 rounded">All Tickets</a></li>
+            
             {% if perms.app.add_ticket %}
-            <li border-teal-700><a href="{% url 'add_ticket' %}" class="hover:text-white py-1.5 px-4 rounded">Create Ticket</a></li>
+                <li border-teal-700><a href="{% url 'add_ticket' %}" class="hover:text-white py-1.5 px-4 rounded">Create Ticket</a></li>
             {% endif %}
+            
+            {% if user.role == "MANAGER" or user.role == "IT-STAFF" %}
+                {% if user.role == "IT-STAFF" %}
+                    <li border-teal-700><a href="{% url 'staff_dashboard' %}" class="hover:text-white py-1.5 px-4 rounded">Dashboard</a></li>
+                {% endif %}
+
+                {% if user.role == "MANAGER" %}
+                    <li border-teal-700><a href="{% url 'manager_dashboard' %}" class="hover:text-white py-1.5 px-4 rounded">Dashboard</a></li>
+                {% endif %}
+            {% endif %}
+            
             <li>
                 <form method="post" action="{% url 'logout'%}">
                     {% csrf_token %}
