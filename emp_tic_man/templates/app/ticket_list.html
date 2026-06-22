@@ -5,44 +5,51 @@
 
 {% block content %}
 <div class="flex">
-    <div class="w-2/6 lg:w-1/5 font-sans bg-slate-600 fixed left-0 top-12 h-screen hidden md:flex flex-col p-2">
+    <div class="lg:w-1/5 font-sans bg-slate-600 fixed left-0 top-12 h-screen hidden lg:flex flex-col p-2">
         
         <p class="text-center  text-xl p-3">
-            Filter
+            Filter <i class="ri-filter-2-line"></i>
         </p>
         <hr>
         <br>
+
         <form action="" method="get" class="text-lg">
             
             <select name="status" id="st_id" class="bg-slate-300 border-0 rounded-full w-full my-5">
-                <option value="" selected>Choose Status</option>
+                
+                <option value="" selected>Choose Status 📊</option>
                 <option value="OPEN">open</option>
                 <option value="IN-PROCESS">in process</option>
                 <option value="CLOSED">resolved</option>
                 
             </select>
-            
+            <hr>
            
-            <select name="priority" id="pri_id" class="bg-slate-300 border-0 rounded-full w-full my-5">
-                <option value="" selected>Choose Priority</option>
+            <select name="priority" id="pri_id" class="bg-slate-300 border-0 rounded-full w-full my-7">
+                
+                <option value="" selected>Choose Priority 🚨</option>
                 <option value="HIGH">high</option>
                 <option value="MEDIUM">medium</option>
                 <option value="LOW">low</option>
+            
             </select>
+            <br>
             <hr>
+            <br>
             <button type="submit" class="p-2 px-1 bg-blue-600 hover:bg-blue-500 rounded w-full my-5 font-mono text-xl">Filter</button>
+        
         </form>
 
     </div>
 
-    <div class="w-full md:w-4/5  mx-0 md:ml-64">
+    <div class="w-full lg:w-4/5  mx-0 lg:ml-64">
 
         <h2 class="text-2xl font-bold my-4 text-center font-mono">
             Ticket List
         </h2>
 
         <!-- Add your ticket list content here -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-1 md:mx-4 lg:mx-10" >
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-1 m-10 mx-1 md:mx-4 lg:mx-10" >
         
         {% for object in object_list %}
         
@@ -62,5 +69,42 @@
         </div>
     </div>
 
-</div>    
+</div> 
+<footer class="bg-yellow-500 z-10 bottom-0 w-full p-1 px-10 text-black text-2xl text-center flex justify-center items-center fixed lg:hidden">
+    
+    <details class="relative w-full">
+        
+        <summary type="button" class="cursor-pointer list-none p-1">   
+        FILTER <i class="ri-filter-fill"></i> 
+        </summary>
+
+    <form action="" method="get" class="absolute bottom-10 bg-slate-900 p-3 rounded shadow w-full m-auto md:w-2/4">
+            
+            <select name="status" id="st_id" class="bg-slate-300 border-0 rounded-full w-full my-5">
+                
+                <option value="" selected>Choose Status 📊</option>
+                <option value="OPEN">open</option>
+                <option value="IN-PROCESS">in process</option>
+                <option value="CLOSED">resolved</option>
+                
+            </select>
+
+            <hr>
+           
+            <select name="priority" id="pri_id" class="bg-slate-300 border-0 rounded-full w-full my-5">
+                
+                <option value="" selected>Choose Priority 🚨</option>
+                <option value="HIGH">high</option>
+                <option value="MEDIUM">medium</option>
+                <option value="LOW">low</option>
+            
+            </select>
+            <br>
+            <hr>
+            
+            <button type="submit" class="p-2 px-1 bg-blue-600 hover:bg-blue-500 rounded w-full my-5 font-mono text-xl">Filter</button>
+        
+        </form>
+    </details>
+</footer>   
 {% endblock %}

@@ -52,16 +52,15 @@ class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
         user = self.request.user
 
         if user.role == 'EMPLOYEE':
-
             tickets = tickets.filter(employee=user)
 
         status = self.request.GET.get("status")
         priority = self.request.GET.get("priority")
 
-        if status != None:
+        if status:
             tickets = tickets.filter(status=status)
 
-        if priority != None:
+        if priority:
             tickets = tickets.filter(priority=priority)
 
         return tickets    
