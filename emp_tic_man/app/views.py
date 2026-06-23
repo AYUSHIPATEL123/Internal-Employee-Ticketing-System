@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.db.models import Case,When,Value,IntegerField
 from django.views.generic import CreateView,ListView,UpdateView,DetailView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
+from django.core.paginator import Paginator
 from .models import *
 from .forms import *
 # Create your views here.
@@ -54,8 +55,13 @@ class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
         if user.role == 'EMPLOYEE':
             tickets = tickets.filter(employee=user)
 
+        search = self.request.GET.get("search")
+
         status = self.request.GET.get("status")
         priority = self.request.GET.get("priority")
+
+        if search:
+            tickets = tickets.filter(summary__icontains=search)
 
         if status:
             tickets = tickets.filter(status=status)
