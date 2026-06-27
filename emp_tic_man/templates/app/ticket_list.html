@@ -61,32 +61,47 @@
         <!-- Add your ticket list content here -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-1 m-7 mx-1 md:mx-4 lg:mx-10" >
         
-        {% for object in object_list %}
+            {% for object in object_list %}
         
-        <div class="bg-teal-200 font-mono p-3 border-8 border-gray-50 rounded-3xl shadow-lg">
-            
-            <h3 class="text-lg p-3 font-semibold text-gray-700"><a href="{{object.get_absolute_url}}">{{ object.summary }}</a></h3>
+                <div class="bg-teal-200 font-mono p-3 border-8 border-gray-50 rounded-3xl shadow-lg">
+                    
+                    <h3 class="text-lg p-3 font-semibold text-gray-700"><a href="{{object.get_absolute_url}}">{{ object.summary }}</a></h3>
+                
+                    <p class="text-black text-base p-2 my-4 bg-teal-50">{{ object.created_at|date:"j F, Y" }}</p>
+                    
+                    <small class="bg-gray-700  text-white px-4 py-2 my-5 font-bold rounded">{{ object.status }}</small>
+                    <small class="bg-yellow-500 text-white px-5 py-2 my-5 rounded font-bold">{{ object.priority }}</small>
+                    
+                </div>
         
-            <p class="text-black text-base p-2 my-4 bg-teal-50">{{ object.created_at|date:"j F, Y" }}</p>
-            
-            <small class="bg-gray-700  text-white px-4 py-2 my-5 font-bold rounded">{{ object.status }}</small>
-            <small class="bg-yellow-500 text-white px-5 py-2 my-5 rounded font-bold">{{ object.priority }}</small>
-            
+            {% endfor %}
+        
         </div>
-        
-        {% endfor %}
-        
-        </div>
-    </div>
 
-    <div>
-        <ul>
-            <li>previous</li>
-            <li>(currunt)</li>
-            <li>next</li>
-        </ul>
     </div>
+    
 </div> 
+
+
+<div>
+    <div class="flex justify-between align-middle w-64 lg:w-20 text-nowrap m-auto text-white text-center border-0 mb-14 md:mb-13 bg-white shadow-lg">
+
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="border-2 p-1 px-2 font-semibold bg-slate-500">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="border-2 p-1 px-2 font-semibold bg-slate-500">Previous</a>
+        {% endif %}
+        
+        <span class="border-2 p-1 px-2 font-semibold bg-slate-500"> {{ page_obj.number }} </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="border-2 p-1 px-2 font-semibold bg-slate-500">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="border-2 p-1 px-2 font-semibold bg-slate-500">Last</a>
+        {% endif %}
+    
+    </div>
+</div>
+
+
 <footer class="bg-yellow-500 z-10 bottom-0 w-full p-1 px-10 text-black text-2xl text-center flex justify-center items-center fixed lg:hidden">
     
     <details class="relative w-full">
@@ -95,7 +110,7 @@
         FILTER <i class="ri-filter-fill"></i> 
         </summary>
 
-    <form action="" method="get" class="absolute bottom-10 bg-slate-900 p-3 rounded shadow w-full m-auto md:w-2/4">
+        <form action="" method="get" class="absolute bottom-10 bg-slate-900 p-3 rounded shadow w-full m-auto md:w-2/4">
             
             <select name="status" id="st_id" class="bg-slate-300 border-0 rounded-full w-full my-5">
                 

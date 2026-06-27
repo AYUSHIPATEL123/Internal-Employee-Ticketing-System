@@ -29,6 +29,7 @@ class ListTicket(LoginRequiredMixin,PermissionRequiredMixin,ListView):
     permission_required = 'app.view_ticket'
     permission_denied_message = "you can not view these data"
     template_name='app/ticket_list.html'
+    paginate_by=6
 
     def get_queryset(self):
 
